@@ -1,0 +1,120 @@
+<header class="logo-box">
+    <img src="images/logo_prularia_wit.png" alt="Prularia logo" class="logo">
+</header>
+
+
+<form [formGroup]="form" (ngSubmit)="opslaan()">
+    <section id="bonInvoer" class="section">
+        <h2>1. Leveringsbon</h2>
+
+        <div class="form-group">
+            <label for="leveranciersId">Leverancier Naam :</label>
+
+            <select id="leveranciersId" formControlName="naam" required>
+
+                <option value="">-- Selecteer een leverancier --</option>
+
+                @for (leverancier of leveranciers(); track leverancier.leveranciersId) {
+                    <option [value]="leverancier.leveranciersId">
+                        {{leverancier.naam}}
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="bonNummer">Bonnummer : </label>
+            <input type="text" id="bonNummer" formControlName="bonNummer" required>
+        </div>
+
+        <div class="form-group">
+            <label for="leverDatum">Datum : </label>
+            <input type="date" id="leverDatum" formControlName="leverDatum" required>
+        </div>
+
+        <div id="foutBon" class="fout" [hidden]="!error()">
+            @if (error()) {
+                <p>{{error()}}
+                </p>
+            }
+        </div>
+    </section>
+
+    <section id="artikelOverzicht" class="section" [formGroup]="form">
+    <h2>2. Artikelen</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>EAN</th>
+                <th>Besteld</th>
+                <th>Goedgekeurd</th>
+                <th>Teruggestuurd</th>
+                <th>Actie</th>
+            </tr>
+        </thead>
+        <tbody formArrayName="lijnen" id="lijnen">
+            @for (lijn of lijnen.controls; track lijn; let i = $index) {
+                <tr [formGroupName]="i">
+                    <td><input type="text" formControlName="ean" placeholder="EAN code"></td>
+                    <td><input type="number" formControlName="aantalBesteld" min="1"></td>
+                    <td><input type="number" formControlName="aantalGoedgekeurd" min="0"></td>
+                    <td><input type="number" formControlName="aantalTeruggestuurd" min="0"></td>
+                    <td>
+                        <button type="button" class="btn-terug verwijder" (click)="verwijderRij(i)">X</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="actions">
+        <button type="button" id="btnVoegToe" (click)="voegRijToe()">Artikel toevoegen</button>
+    </div>
+
+    <div id="foutLijnen" class="fout" [hidden]="!errorLijnen()">
+        @if (errorLijnen()) {
+            <p>{{ errorLijnen() }}</p>
+        }
+    </div>
+</section>
+
+<section class="section actions">
+        <button id="btnVerstuur" type="submit">Opslaan</button>
+</section>
+
+@if (huidigeSectie() === 'resultaat') {
+<section id="resultaat" class="section">
+    <h2>3. Magazijnzetten</h2>
+
+    <table>
+
+      <thead>
+        <tr><th>Locatie</th><th>Artikel</th><th>Aantal</th><th>Check</th></tr>
+      </thead>
+
+      <tbody id="overzichtBody">
+        @for (item of overzicht(); track item; let i = $index) {
+          <tr>
+            <td>{{ item.locatie || '-' }}</td>
+            <td>{{ item.naam }}</td>
+            <td>{{ item.aantalGoedgekeurd }}</td>
+            <td><input type="checkbox" class="checkItem" [checked]="overzichtChecks()[i]" (change)="toggleCheck(i)"></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <button id="btnAfronden" type="button">Afronden</button>
+    </div>
+
+    <div id="foutAfronden" class="fout" hidden></div>
+  </section>
+}
+<section class="section">
+        <button [routerLink]="['/hoofdmenu']">Terug naar hoofdmenu</button>
+    </section>
+
+
+
+</form>

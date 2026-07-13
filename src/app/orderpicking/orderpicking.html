@@ -1,0 +1,86 @@
+<div *ngIf="storing()">
+  Er is een storing opgetreden
+</div>
+
+
+<h2>
+  Bestelling: {{ bestelId() }}
+</h2>
+
+
+<table class="section">
+
+  <tr>
+    <th>Locatie</th>
+    <th>Artikel</th>
+    <th>Aantal</th>
+    <th></th>
+  </tr>
+
+  @for (lijn of bestellijnen(); track lijn.artikelId) {
+  <tr>
+
+    <td>
+      {{ lijn.rij }}{{ lijn.rek }}
+    </td>
+
+
+    <td>
+      <span
+        class="artikel-naam"
+        (click)="toonArtikelInfo(lijn.artikelId)">
+        {{ lijn.naam }}
+      </span>
+    </td>
+
+
+    <td>
+      {{ lijn.aantalBesteld }}
+    </td>
+
+    <td>
+      <input 
+      type="checkbox"
+      (change)="toggleCheckbox(lijn.artikelId, $any($event.target).checked)">
+    </td>
+
+  </tr>
+}
+
+</table>
+
+
+<div *ngIf="artikelInfo() as artikel">
+
+  <h3>Artikel informatie</h3>
+
+  <p>
+    <strong>EAN:</strong>
+    {{ artikel.ean }}
+  </p>
+
+  <p>
+    <strong>Naam:</strong>
+    {{ artikel.naam }}
+  </p>
+
+  <p>
+    <strong>Voorraad:</strong>
+    {{ artikel.voorraad }}
+  </p>
+
+  <p>
+    <strong>Locatie:</strong>
+    {{ artikel.locatie }}
+  </p>
+
+</div>
+
+<section class="section">
+<button id="afwerken" class="btn-afgewerkt" (click)="werkBestellingAf()" [disabled]="!alleCheckboxenAangevinkt()">Afgewerkt</button>
+</section> 
+<section class="section">
+        <button [routerLink]="['/hoofdmenu']">Terug naar hoofdmenu</button>
+    </section>
+
+

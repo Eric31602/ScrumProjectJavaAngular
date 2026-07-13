@@ -1,0 +1,30 @@
+<div id="imgHeader">
+    <div class="logo-box">
+        <img src="images/logo_prularia_wit.png" alt="Header image">
+    </div>
+</div>
+
+<div>
+    <h1>Totaal aantal bestellingen:
+        <span id="aantalBestellingen">{{totaalBestellingen()}}</span>
+    </h1>
+</div>
+
+@if (!storing()) {
+<table>
+    <thead>
+        <tr>
+            <td>Bestelnummer</td>
+            <td>Aantal Artikelen</td>
+            <td>Totaal Gewicht</td>
+        </tr>
+    </thead>
+    @for (bestelling of bestellingen(); track bestelling.bestelId) {
+    <tbody id="bestellingenBody">
+        <td>#{{bestelling.bestelId}}</td>
+        <td>{{bestelling.aantalArtikelen}} stuks</td>
+        <td>{{bestelling.totaalGewichtKg}} kg</td>
+    </tbody>
+}
+</table>
+}
