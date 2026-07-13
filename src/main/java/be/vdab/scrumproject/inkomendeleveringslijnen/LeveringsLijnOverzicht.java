@@ -1,4 +1,4 @@
 package be.vdab.scrumproject.inkomendeleveringslijnen;
 
-public class LeveringsLijnOverzicht {
+public record LeveringsLijnOverzicht(String locatie, String naam, int aantalGoedgekeurd) {
 }

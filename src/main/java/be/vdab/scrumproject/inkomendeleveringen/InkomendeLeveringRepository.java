@@ -1,4 +1,6 @@
 package be.vdab.scrumproject.inkomendeleveringen;
 
-public interface InkomendeLeveringRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface InkomendeLeveringRepository extends JpaRepository<InkomendeLevering, Long> {
 }

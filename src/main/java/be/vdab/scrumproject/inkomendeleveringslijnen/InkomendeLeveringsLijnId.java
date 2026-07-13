@@ -1,4 +1,4 @@
-package be.vdab.scrumproject.inkomendeleveringen;
+package be.vdab.scrumproject.inkomendeleveringslijnen;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;

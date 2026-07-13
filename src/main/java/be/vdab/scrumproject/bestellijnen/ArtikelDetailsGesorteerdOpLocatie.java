@@ -1,4 +1,6 @@
 package be.vdab.scrumproject.bestellijnen;
 
-public class ArtikelDetailsGesorteerdOpLocatie {
+public record ArtikelDetailsGesorteerdOpLocatie(String rij, int rek, String naam,
+                                                int aantalBesteld, long artikelId) {
+
 }

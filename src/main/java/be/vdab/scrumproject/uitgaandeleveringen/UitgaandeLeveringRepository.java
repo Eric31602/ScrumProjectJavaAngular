@@ -1,4 +1,6 @@
 package be.vdab.scrumproject.uitgaandeleveringen;
 
-public interface UitgaandeLeveringRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UitgaandeLeveringRepository extends JpaRepository<UitgaandeLevering, Long> {
 }
